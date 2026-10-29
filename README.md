@@ -2,10 +2,10 @@
 
 [![CI](https://github.com/zelimir86/aura-launcher-gtk/actions/workflows/ci.yml/badge.svg)](https://github.com/zelimir86/aura-launcher-gtk/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GTK 4](https://img.shields.io/badge/GTK-4.x-4a86cf.svg)](https://gtk.org)
 
-Moderan aplikacijski launcher za Linux — kao Ulauncher, ali sa čistim savremenim
-interfejsom, pametnim pretraživanjem, ugrađenim kalkulatorom i automatskom
-tamnom/svetlom temom.
+A modern application launcher for Linux — like Ulauncher, but with a cleaner
+interface, smarter search, a built-in calculator and automatic dark/light theming.
 
 ![Aura Launcher demo](docs/demo.gif)
 
@@ -16,24 +16,24 @@ tamnom/svetlom temom.
 
 ---
 
-## Karakteristike
+## Features
 
-| Funkcija | Opis |
+| Feature | Description |
 |---|---|
-| **Pretraga aplikacija** | Indeksira sve `.desktop` fajlove, pametno rangira po nazivu, opisu, ključnim rečima i skraćenicama |
-| **Učenje navika** | Pamti koliko često pokrećeš koju aplikaciju i izbacuje je na vrh liste |
-| **Kalkulator** | Ukucaj `2^10 + sqrt(144)` i rezultat se pojavi odmah; `Enter` kopira rezultat |
-| **Veb pretraga** | `g nešto`, `ddg nešto`, `yt nešto`, `gh nešto`, `wiki nešto` |
-| **Otvori URL** | Nalepi `https://...` ili samo `github.com` |
-| **Sistemske akcije** | `lock`, `reboot`, `shutdown`, `logout`, `sleep` |
-| **Dinamička visina** | Prozor se skuplja i širi u zavisnosti od broja rezultata |
-| **Tamna i svetla tema** | Automatski prati dark/light podešavanje sistema, u realnom vremenu |
-| **Tastatura** | `↑` `↓` navigacija, `Enter` otvara, `Esc` briše tekst / zatvara |
+| **App search** | Indexes every `.desktop` file and ranks by name, description, keywords and acronyms |
+| **Learns your habits** | Counts launches and floats frequently used apps to the top |
+| **Calculator** | Type `2^10 + sqrt(144)` and the result appears instantly; `Enter` copies it |
+| **Web search** | `g`, `ddg`, `yt`, `gh`, `wiki`, `r`, `tr` prefixes |
+| **Open URLs** | Paste `https://...` or just type `github.com` |
+| **System actions** | `lock`, `sleep`, `reboot`, `shutdown`, `logout` |
+| **Dark & light theme** | Follows the desktop setting live, no restart needed |
+| **Adaptive height** | The window grows and shrinks with the number of results |
+| **Keyboard driven** | `↑` `↓` to navigate, `Enter` to open, `Esc` to clear / close |
 
-## Zahtevi
+## Requirements
 
 - Python 3.9+
-- GTK 4 + PyGObject
+- GTK 4 with PyGObject
 
 ```bash
 # Debian / Ubuntu / Linux Mint
@@ -46,15 +46,16 @@ sudo dnf install python3-gobject gtk4
 sudo pacman -S python-gobject gtk4
 ```
 
-## Instalacija
+## Installation
 
 ```bash
-chmod +x install.sh uninstall.sh
-./install.sh              # samo instaliraj
-./install.sh --shortcut   # instaliraj + veži Super+Space (Cinnamon)
+git clone https://github.com/zelimir86/aura-launcher-gtk.git
+cd aura-launcher-gtk
+./install.sh              # install only
+./install.sh --shortcut   # install and bind Super+Space (Cinnamon)
 ```
 
-Instalira se u `~/.local` — bez root prava:
+Everything is installed under `~/.local` — no root required:
 
 ```
 ~/.local/bin/aura-launcher
@@ -63,90 +64,90 @@ Instalira se u `~/.local` — bez root prava:
 ~/.local/share/icons/hicolor/scalable/apps/org.aura.Launcher.svg
 ```
 
-Uklanjanje:
+To remove it again:
 
 ```bash
 ./uninstall.sh
 ```
 
-## Pokretanje
+## Usage
 
 ```bash
-aura-launcher          # otvori launcher
-aura-launcher --quit   # zaustavi pozadinsku instancu
+aura-launcher          # open the launcher
+aura-launcher --quit   # stop the background instance
 aura-launcher --version
 ```
 
-Aplikacija radi kao **jedna instanca** — ako je već pokrenuta u pozadini,
-novi poziv samo prikaže prozor (trenutno otvaranje).
+The app runs as a **single instance**: if it is already running in the
+background, another invocation just brings the window up.
 
-### Prečica na tastaturi (Cinnamon)
+### Keyboard shortcut (Cinnamon)
 
 `System Settings → Keyboard → Shortcuts → Custom Shortcuts`
 
-| Polje | Vrednost |
+| Field | Value |
 |---|---|
 | Name | Aura Launcher |
 | Command | `aura-launcher` |
 | Keybind | `Super+Space` |
 
-GNOME: `Settings → Keyboard → Custom Shortcuts → +`, isti podaci.
+GNOME: `Settings → Keyboard → Custom Shortcuts → +`, same values.
 
-## Kako se koristi
+## Examples
 
 ```
-fire                    → pronađi Firefox
-2*3+4                   → 10 (Enter kopira rezultat)
-g python gtk4 tutorial  → Google pretraga
-yt lo-fi beats          → YouTube pretraga
-github.com              → otvori sajt
-reboot                  → restart računara
+fire                    → find Firefox
+2*3+4                   → 10 (Enter copies the result)
+g python gtk4 tutorial  → Google search
+yt lo-fi beats          → YouTube search
+github.com              → open the site
+reboot                  → restart the machine
 ```
 
-## Teme
+## Theming
 
-Launcher prati sistemsko podešavanje i menja se **u hodu** — dovoljno je da
-promeniš temu u sistemu i prozor se prefarba bez restarta.
+The launcher follows the system preference and switches **live** — change the
+desktop theme and the window repaints without a restart.
 
-Kako se otkriva tema:
+How the preference is detected:
 
-| Izvor | Desktop |
+| Source | Desktop |
 |---|---|
-| `color-scheme` ključ | GNOME 42+, KDE, XFCE 4.18+ |
-| Naziv teme (`*dark*`) | Cinnamon, MATE |
+| `color-scheme` key | GNOME 42+, KDE, XFCE 4.18+ |
+| Theme name containing `dark` | Cinnamon, MATE |
 | `Adw.StyleManager` | libadwaita |
-| `gtk-application-prefer-dark-theme` | rezerva |
+| `gtk-application-prefer-dark-theme` | fallback |
 
-Ručno forsiranje teme (korisno za testiranje):
+Force a theme manually (handy for testing):
 
 ```bash
 AURA_THEME=dark aura-launcher
 AURA_THEME=light aura-launcher
 ```
 
-## Struktura projekta
+## Project structure
 
 ```
 aura_launcher/
-├── app.py            # Gtk.Application, komandna linija
-├── window.py         # glavni prozor i UI logika
-├── app_indexer.py    # indeksiranje .desktop fajlova + rangiranje
-├── calculator.py     # bezbedno izračunavanje izraza
-├── web_search.py     # veb pretrage i URL detekcija
-├── system_actions.py # lock / reboot / shutdown / logout
-├── theme.py          # detekcija dark/light + praćenje promena
-├── style.css         # raspored i struktura
-├── theme-dark.css    # tamna paleta
-└── theme-light.css   # svetla paleta
+├── app.py            # Gtk.Application and command line
+├── window.py         # main window and UI logic
+├── app_indexer.py    # .desktop indexing and ranking
+├── calculator.py     # safe expression evaluation
+├── web_search.py     # search providers and URL detection
+├── system_actions.py # lock / suspend / reboot / shutdown / logout
+├── theme.py          # dark/light detection and change tracking
+├── style.css         # layout and structure
+├── theme-dark.css    # dark palette
+└── theme-light.css   # light palette
 ```
 
-## Prilagođavanje
+## Customization
 
-**Boje** — `aura_launcher/theme-dark.css` i `theme-light.css`.
-Svaka tema je lista `@define-color` vrednosti; `style.css` ih samo koristi.
-Akcenat je gradijent `#7c5cff → #22d3ee` na ikonici kalkulatora.
+**Colors** — `aura_launcher/theme-dark.css` and `theme-light.css`.
+Each theme is a list of `@define-color` values; `style.css` only consumes them.
+The accent is the `#7c5cff → #22d3ee` gradient on the calculator icon.
 
-**Nove veb pretrage** — `aura_launcher/web_search.py`, rečnik `PROVIDERS`:
+**New web searches** — `aura_launcher/web_search.py`, the `PROVIDERS` dict:
 
 ```python
 "so": {"name": "Stack Overflow",
@@ -154,22 +155,22 @@ Akcenat je gradijent `#7c5cff → #22d3ee` na ikonici kalkulatora.
        "icon": "utilities-terminal-symbolic"},
 ```
 
-**Nove sistemske akcije** — `aura_launcher/system_actions.py`, lista `ACTIONS`.
+**New system actions** — `aura_launcher/system_actions.py`, the `ACTIONS` list.
 
-**Broj vidljivih rezultata** — `MAX_LIST_HEIGHT` u `aura_launcher/window.py`.
+**Visible results** — `MAX_LIST_HEIGHT` in `aura_launcher/window.py`.
 
-## Razvoj
+## Development
 
 ```bash
-python3 tools/test_logic.py        # testovi logike (bez displeja)
-python3 tools/smoke_test.py        # gradi prozor i proverava pretrage
+python3 tools/test_logic.py        # logic tests, no display needed
+python3 tools/smoke_test.py        # builds the window and checks searches
 python3 tools/screenshot.py "" docs/preview.png
-python3 tools/make_demo_gif.py     # regeneriše docs/demo.gif
+python3 tools/make_demo_gif.py     # regenerates docs/demo.gif
 ```
 
-CI (GitHub Actions) pokreće testove logike, gradi prozor pod Xvfb-om i
-proverava sintaksu shell skripti.
+CI (GitHub Actions) runs the logic tests, builds the window under Xvfb and
+syntax-checks the shell scripts.
 
-## Licenca
+## License
 
-MIT
+MIT — see [LICENSE](LICENSE).
