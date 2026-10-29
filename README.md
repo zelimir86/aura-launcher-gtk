@@ -107,6 +107,81 @@ rm ~/.config/autostart/org.aura.Launcher.desktop   # disable
 
 GNOME: `Settings → Keyboard → Custom Shortcuts → +`, same values.
 
+## Other desktops
+
+Aura Launcher is a plain GTK 4 application and only relies on XDG standards,
+so it runs on GNOME, KDE Plasma, XFCE, MATE, Budgie, Cinnamon, Sway, Hyprland
+and anything else with GTK 4 available. It has been tested on Cinnamon under
+Wayland.
+
+### Keyboard shortcut
+
+`./install.sh --shortcut` only automates Cinnamon. Elsewhere, bind
+`aura-launcher` manually:
+
+| Desktop | Where |
+|---|---|
+| GNOME | Settings → Keyboard → Custom Shortcuts → + |
+| KDE Plasma | System Settings → Shortcuts → Custom Shortcuts → New → Global Shortcut → Command/URL |
+| XFCE | Settings → Keyboard → Application Shortcuts → Add |
+| MATE | Control Center → Keyboard Shortcuts → Add |
+| Budgie | Settings → Keyboard → Custom Shortcuts |
+| Sway | `bindsym $mod+space exec aura-launcher` |
+| Hyprland | `bind = SUPER, Space, exec, aura-launcher` |
+
+### Tiling window managers
+
+GTK 4 cannot position its own windows, so a tiling compositor will tile the
+launcher instead of floating it. Add a rule for the window class
+`org.aura.Launcher`:
+
+**Hyprland** (`~/.config/hypr/hyprland.conf`)
+
+```
+windowrulev2 = float,class:^(org.aura.Launcher)$
+windowrulev2 = size 780 520,class:^(org.aura.Launcher)$
+windowrulev2 = center,class:^(org.aura.Launcher)$
+```
+
+**Sway** (`~/.config/sway/config`)
+
+```
+for_window [app_id="org.aura.Launcher"] floating enable, resize set 780 520, move position center
+```
+
+**i3** (X11)
+
+```
+for_window [class="org.aura.Launcher"] floating enable, resize set 780 520, move position center
+```
+
+### Layer shell (experimental)
+
+On wlroots compositors the launcher can use `wlr-layer-shell` to sit above
+other windows and centre itself reliably:
+
+```bash
+# Debian / Ubuntu / Mint
+sudo apt install gir1.2-gtk4layershell-1.0
+
+AURA_LAYER_SHELL=1 aura-launcher
+```
+
+It is opt-in because it has not been verified on every compositor yet. Unset
+the variable (or set it to `0`) to return to a normal window.
+
+### System actions
+
+`lock` and `logout` use `loginctl`, while `sleep`, `reboot` and `shutdown` use
+`systemctl`. On distributions without systemd those entries will not work; the
+rest of the launcher is unaffected.
+
+### Icons
+
+Icons come from the active icon theme using standard freedesktop names. A
+minimal theme may not ship all of them; a missing icon renders blank instead of
+breaking the row.
+
 ## Examples
 
 ```

@@ -115,6 +115,7 @@ class AuraWindow(Gtk.ApplicationWindow):
         self.results = []
         self._debounce_id = 0
         self._closing = False
+        self._layer = None
 
         self.set_decorated(False)
         self.set_resizable(False)
@@ -215,6 +216,7 @@ class AuraWindow(Gtk.ApplicationWindow):
 
         self.connect("notify::is-active", self._on_active_changed)
 
+        self._setup_layer_shell()
         self._refresh()
 
     # ------------------------------------------------------------------
@@ -321,6 +323,13 @@ class AuraWindow(Gtk.ApplicationWindow):
         if rows:
             self.listbox.select_row(rows[0])
 
+        if self._layer is not None:
+            GLib.idle_add(self._position_after_layout)
+
+    def _position_after_layout(self):
+        self._position_layer()
+        return False
+
     def _content_width(self):
         return max(self.get_width() - 2, 360)
 
@@ -415,6 +424,64 @@ class AuraWindow(Gtk.ApplicationWindow):
             self.hide()
 
     # ------------------------------------------------------------------
+    # layer shell (opt-in)
+    # ------------------------------------------------------------------
+
+    def _setup_layer_shell(self):
+        """Opt-in wlr-layer-shell support for Wayland compositors.
+
+        Off by default because it changes how the compositor treats the
+        surface. Enable with AURA_LAYER_SHELL=1 once it has been verified on
+        the target system. Any failure falls back to a normal window.
+        """
+        if os.environ.get("AURA_LAYER_SHELL", "").strip().lower() not in ("1", "true", "yes"):
+            return False
+        if not os.environ.get("WAYLAND_DISPLAY"):
+            return False
+        try:
+            gi.require_version("Gtk4LayerShell", "1.0")
+            from gi.repository import Gtk4LayerShell as layer
+        except Exception:
+            return False
+
+        try:
+            if hasattr(layer, "is_supported") and not layer.is_supported():
+                return False
+            layer.init_for_window(self)
+            layer.set_layer(self, layer.Layer.OVERLAY)
+            layer.set_keyboard_mode(self, layer.KeyboardMode.ON_DEMAND)
+            layer.set_anchor(self, layer.Edge.TOP, True)
+            layer.set_anchor(self, layer.Edge.LEFT, True)
+        except Exception as exc:
+            print(f"[aura] layer shell unavailable: {exc}")
+            return False
+
+        self._layer = layer
+        return True
+
+    def _position_layer(self):
+        """Centre horizontally and drop the surface near the top of the screen."""
+        if self._layer is None:
+            return
+        try:
+            display = Gdk.Display.get_default()
+            monitors = display.get_monitors() if display else None
+            monitor = monitors.get_item(0) if monitors and monitors.get_n_items() else None
+            geometry = monitor.get_geometry() if monitor else None
+
+            width = self.get_width() or 780
+            if geometry is not None:
+                left = max((geometry.width - width) // 2, 0)
+                top = max(int(geometry.height * 0.14), 0)
+            else:
+                left, top = 0, 0
+
+            self._layer.set_margin(self, self._layer.Edge.LEFT, left)
+            self._layer.set_margin(self, self._layer.Edge.TOP, top)
+        except Exception:
+            pass
+
+    # ------------------------------------------------------------------
     # lifecycle
     # ------------------------------------------------------------------
 
@@ -422,6 +489,7 @@ class AuraWindow(Gtk.ApplicationWindow):
         self.entry.set_text("")
         self._refresh()
         self.present()
+        self._position_layer()
         self.entry.grab_focus()
 
     def close_launcher(self):
