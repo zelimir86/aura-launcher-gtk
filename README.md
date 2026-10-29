@@ -53,6 +53,8 @@ git clone https://github.com/zelimir86/aura-launcher-gtk.git
 cd aura-launcher-gtk
 ./install.sh              # install only
 ./install.sh --shortcut   # install and bind Super+Space (Cinnamon)
+./install.sh --autostart  # install and keep a background instance at login
+./install.sh --all        # shortcut + autostart
 ```
 
 Everything is installed under `~/.local` — no root required:
@@ -80,6 +82,18 @@ aura-launcher --version
 
 The app runs as a **single instance**: if it is already running in the
 background, another invocation just brings the window up.
+
+### Startup
+
+Autostart is optional. Without it the first `Super+Space` starts the process
+cold (~0.5 s) and it then stays alive in the background, so every later press
+is instant. With autostart the very first press is instant too, at the cost of
+a resident process (~50 MB PSS).
+
+```bash
+./install.sh --autostart     # enable
+rm ~/.config/autostart/org.aura.Launcher.desktop   # disable
+```
 
 ### Keyboard shortcut (Cinnamon)
 

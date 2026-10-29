@@ -10,12 +10,17 @@ ICON_DIR="$PREFIX/share/icons/hicolor/scalable/apps"
 APPS_DIR="$PREFIX/share/applications"
 
 SETUP_SHORTCUT=0
+SETUP_AUTOSTART=0
 for arg in "$@"; do
     case "$arg" in
         --shortcut) SETUP_SHORTCUT=1 ;;
+        --autostart) SETUP_AUTOSTART=1 ;;
+        --all) SETUP_SHORTCUT=1; SETUP_AUTOSTART=1 ;;
         -h|--help)
-            echo "Usage: ./install.sh [--shortcut]"
-            echo "  --shortcut   also bind Super+Space (Cinnamon) automatically"
+            echo "Usage: ./install.sh [--shortcut] [--autostart] [--all]"
+            echo "  --shortcut    bind Super+Space (Cinnamon) automatically"
+            echo "  --autostart   start a background instance at login"
+            echo "  --all         both of the above"
             exit 0
             ;;
     esac
@@ -143,10 +148,33 @@ PY
     ok "Super+Space → $cmd"
 }
 
+# ---------------------------------------------------------------- autostart
+setup_autostart() {
+    local dir="${XDG_CONFIG_HOME:-$HOME/.config}/autostart"
+    mkdir -p "$dir"
+    cat > "$dir/org.aura.Launcher.desktop" <<EOF
+[Desktop Entry]
+Type=Application
+Name=Aura Launcher
+Comment=Modern application launcher (background instance)
+Exec=$BIN_DIR/aura-launcher
+Icon=org.aura.Launcher
+Terminal=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Delay=3
+EOF
+    ok "autostart entry: $dir/org.aura.Launcher.desktop"
+}
+
 # ---------------------------------------------------------------- summary
 echo
 if [ "$SETUP_SHORTCUT" -eq 1 ]; then
     setup_shortcut
+fi
+if [ "$SETUP_AUTOSTART" -eq 1 ]; then
+    info "Enabling autostart"
+    setup_autostart
 fi
 
 info "Done!"
