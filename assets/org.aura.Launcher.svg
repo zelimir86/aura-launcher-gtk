@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c5cff"/>
+      <stop offset="55%" stop-color="#5b7cfa"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+  </defs>
+
+  <rect x="6" y="6" width="116" height="116" rx="30" fill="url(#bg)"/>
+  <rect x="6" y="6" width="116" height="116" rx="30" fill="url(#shine)"/>
+
+  <!-- aura ring -->
+  <circle cx="64" cy="64" r="34" fill="none" stroke="#ffffff" stroke-opacity="0.30" stroke-width="3"/>
+
+  <!-- spark / search glyph -->
+  <g fill="#ffffff">
+    <circle cx="57" cy="57" r="15" fill="none" stroke="#ffffff" stroke-width="6"/>
+    <line x1="68" y1="68" x2="82" y2="82" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <circle cx="64" cy="64" r="46" fill="none" stroke="#ffffff" stroke-opacity="0.16"
+          stroke-width="2" filter="url(#soft)"/>
+</svg>

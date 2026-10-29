@@ -1,0 +1,184 @@
+/* ============================================================
+   Aura Launcher — layout & structure
+   Colours come from theme-dark.css / theme-light.css
+   ============================================================ */
+
+window.aura-window {
+    background: transparent;
+}
+
+.aura-card {
+    background-color: @aura_bg;
+    border-radius: 16px;
+    border: 1px solid @aura_border;
+}
+
+/* ---------- search bar ---------- */
+
+.aura-search-box {
+    padding: 18px 22px 14px 22px;
+}
+
+.aura-search-icon {
+    color: @aura_fg_faint;
+    margin-right: 2px;
+}
+
+entry.aura-entry {
+    background: transparent;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    padding: 0;
+    min-height: 32px;
+    color: @aura_fg;
+    font-size: 21px;
+    font-weight: 500;
+    caret-color: @aura_caret;
+}
+
+entry.aura-entry:focus,
+entry.aura-entry:focus-within {
+    background: transparent;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+entry.aura-entry > text {
+    background: transparent;
+    color: @aura_fg;
+    caret-color: @aura_caret;
+}
+
+entry.aura-entry > text > placeholder {
+    color: @aura_fg_faint;
+    font-weight: 400;
+}
+
+entry.aura-entry selection {
+    background-color: @aura_entry_sel;
+    color: @aura_fg;
+}
+
+/* ---------- divider ---------- */
+
+.aura-divider {
+    min-height: 1px;
+    background-color: @aura_divider;
+}
+
+/* ---------- results ---------- */
+
+scrolledwindow.aura-scroll {
+    background: transparent;
+    border: none;
+}
+
+scrolledwindow.aura-scroll > viewport {
+    background: transparent;
+}
+
+list.aura-list {
+    background: transparent;
+    padding: 6px 8px;
+}
+
+list.aura-list > row {
+    background: transparent;
+    border-radius: 10px;
+    padding: 0;
+    margin: 1px 0;
+    transition: background-color 110ms ease;
+}
+
+list.aura-list > row:hover {
+    background-color: @aura_hover;
+}
+
+list.aura-list > row:selected {
+    background-color: @aura_sel_bg;
+    box-shadow: inset 0 0 0 1px @aura_sel_border;
+}
+
+list.aura-list > row:selected .aura-row-title {
+    color: @aura_sel_fg;
+}
+
+.aura-row {
+    padding: 8px 12px 8px 10px;
+}
+
+.aura-icon-box {
+    color: @aura_icon_fg;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 10px;
+    background-color: @aura_icon_bg;
+}
+
+.aura-icon-box.accent {
+    background-image: linear-gradient(135deg, #7c5cff 0%, #22d3ee 100%);
+    color: #ffffff;
+}
+
+.aura-row-title {
+    color: @aura_fg;
+    font-size: 14.5px;
+    font-weight: 600;
+}
+
+.aura-row-subtitle {
+    color: @aura_fg_dim;
+    font-size: 12px;
+}
+
+.aura-badge {
+    color: @aura_badge_fg;
+    background-color: @aura_badge_bg;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+}
+
+.aura-badge.calc {
+    background-color: @aura_accent_soft;
+    color: @aura_accent_text;
+}
+
+/* ---------- footer ---------- */
+
+.aura-footer {
+    padding: 8px 18px 12px 18px;
+}
+
+.aura-hint {
+    color: @aura_fg_faint;
+    font-size: 11px;
+}
+
+.aura-key {
+    color: @aura_key_fg;
+    background-color: @aura_key_bg;
+    border-radius: 5px;
+    padding: 1px 5px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.aura-empty {
+    color: @aura_fg_faint;
+    font-size: 14px;
+    padding: 32px 0;
+}
+
+.aura-brand {
+    color: @aura_brand;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+}

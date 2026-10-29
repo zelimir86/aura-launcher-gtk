@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Aura Launcher
+GenericName=Application Launcher
+Comment=Modern application launcher with search, math and web actions
+Exec=aura-launcher
+Icon=org.aura.Launcher
+Terminal=false
+Categories=Utility;System;
+Keywords=launcher;search;run;apps;aura;
+StartupNotify=false
+StartupWMClass=org.aura.Launcher

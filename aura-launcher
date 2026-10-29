@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Run Aura Launcher directly from the source tree.
+set -euo pipefail
+
+SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ -d "${XDG_DATA_HOME:-$HOME/.local/share}/aura-launcher/aura_launcher" ]; then
+    APP_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/aura-launcher"
+else
+    APP_DIR="$SOURCE_DIR"
+fi
+
+export PYTHONPATH="$APP_DIR${PYTHONPATH:+:$PYTHONPATH}"
+exec python3 -m aura_launcher "$@"

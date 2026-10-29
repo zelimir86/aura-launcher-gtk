@@ -1,0 +1,30 @@
+/* Aura Launcher — light palette */
+
+@define-color aura_bg #fbfbfd;
+@define-color aura_border rgba(0, 0, 0, 0.10);
+
+@define-color aura_fg #1c1e26;
+@define-color aura_fg_dim rgba(0, 0, 0, 0.50);
+@define-color aura_fg_faint rgba(0, 0, 0, 0.34);
+
+@define-color aura_icon_fg rgba(0, 0, 0, 0.72);
+@define-color aura_icon_bg rgba(0, 0, 0, 0.045);
+
+@define-color aura_hover rgba(0, 0, 0, 0.035);
+@define-color aura_sel_bg rgba(124, 92, 255, 0.11);
+@define-color aura_sel_border rgba(124, 92, 255, 0.32);
+@define-color aura_sel_fg #12131a;
+
+@define-color aura_divider rgba(0, 0, 0, 0.07);
+@define-color aura_badge_bg rgba(0, 0, 0, 0.05);
+@define-color aura_badge_fg rgba(0, 0, 0, 0.50);
+
+@define-color aura_key_bg rgba(0, 0, 0, 0.06);
+@define-color aura_key_fg rgba(0, 0, 0, 0.55);
+@define-color aura_brand rgba(0, 0, 0, 0.20);
+
+@define-color aura_caret #6d4dff;
+@define-color aura_accent #6d4dff;
+@define-color aura_accent_soft rgba(109, 77, 255, 0.16);
+@define-color aura_accent_text #4b32c3;
+@define-color aura_entry_sel rgba(109, 77, 255, 0.20);
