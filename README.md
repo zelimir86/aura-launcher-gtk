@@ -185,6 +185,13 @@ python3 tools/make_demo_gif.py     # regenerates docs/demo.gif
 CI (GitHub Actions) runs the logic tests, builds the window under Xvfb and
 syntax-checks the shell scripts.
 
+## Acknowledgements
+
+Developed with the help of an AI coding assistant (OpenCode).
+The project idea, requirements, design decisions and testing were directed
+by the author; the implementation was written collaboratively with the
+assistant.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
