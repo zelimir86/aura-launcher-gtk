@@ -1,10 +1,18 @@
 # Aura Launcher
 
-Moderan aplikacijski launcher za Linux — kao Ulauncher, ali sa savremenim staklastim
-interfejsom (glass UI), pametnim pretraživanjem i ugrađenim kalkulatorom.
+[![CI](https://github.com/zelimir86/aura-launcher-gtk/actions/workflows/ci.yml/badge.svg)](https://github.com/zelimir86/aura-launcher-gtk/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-![Aura Launcher — dark](docs/preview.png)
-![Aura Launcher — light](docs/preview_light.png)
+Moderan aplikacijski launcher za Linux — kao Ulauncher, ali sa čistim savremenim
+interfejsom, pametnim pretraživanjem, ugrađenim kalkulatorom i automatskom
+tamnom/svetlom temom.
+
+![Aura Launcher demo](docs/demo.gif)
+
+<p align="center">
+  <img src="docs/preview.png" width="49%" alt="Aura Launcher — dark theme">
+  <img src="docs/preview_light.png" width="49%" alt="Aura Launcher — light theme">
+</p>
 
 ---
 
@@ -149,6 +157,18 @@ Akcenat je gradijent `#7c5cff → #22d3ee` na ikonici kalkulatora.
 **Nove sistemske akcije** — `aura_launcher/system_actions.py`, lista `ACTIONS`.
 
 **Broj vidljivih rezultata** — `MAX_LIST_HEIGHT` u `aura_launcher/window.py`.
+
+## Razvoj
+
+```bash
+python3 tools/test_logic.py        # testovi logike (bez displeja)
+python3 tools/smoke_test.py        # gradi prozor i proverava pretrage
+python3 tools/screenshot.py "" docs/preview.png
+python3 tools/make_demo_gif.py     # regeneriše docs/demo.gif
+```
+
+CI (GitHub Actions) pokreće testove logike, gradi prozor pod Xvfb-om i
+proverava sintaksu shell skripti.
 
 ## Licenca
 

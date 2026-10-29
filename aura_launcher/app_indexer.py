@@ -3,6 +3,7 @@ import os
 import subprocess
 import gi
 gi.require_version('Gtk', '4.0')
+gi.require_version('Gdk', '4.0')
 from gi.repository import Gio, Gdk, Gtk, GLib
 
 USAGE_FILE = os.path.expanduser("~/.config/aura-launcher/usage.json")
