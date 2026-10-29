@@ -54,6 +54,32 @@ jobs:
           bash -n uninstall.sh
           bash -n aura-launcher
 
+      - name: Install runtime dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-gi gir1.2-gtk-4.0
+
+      - name: Install / uninstall round trip
+        run: |
+          export PREFIX="$RUNNER_TEMP/prefix"
+          ./install.sh
+          test -x "$PREFIX/bin/aura-launcher"
+          test -f "$PREFIX/share/applications/org.aura.Launcher.desktop"
+          test -f "$PREFIX/share/icons/hicolor/scalable/apps/org.aura.Launcher.svg"
+
+          ./uninstall.sh
+          test ! -e "$PREFIX/bin/aura-launcher"
+          test ! -e "$PREFIX/share/aura-launcher"
+          test ! -e "$PREFIX/share/icons/hicolor/scalable/apps/org.aura.Launcher.svg"
+
+          # A stale cache keeps listing a removed icon and hides the system one.
+          if [ -f "$PREFIX/share/icons/hicolor/icon-theme.cache" ]; then
+            if grep -q "org.aura.Launcher" "$PREFIX/share/icons/hicolor/icon-theme.cache"; then
+              echo "stale icon cache entry left behind" >&2
+              exit 1
+            fi
+          fi
+
   packages:
     name: Packages (.deb / .rpm)
     runs-on: ubuntu-latest

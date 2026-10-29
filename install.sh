@@ -30,6 +30,19 @@ info()  { printf '\033[1;35m::\033[0m %s\n' "$*"; }
 ok()    { printf '\033[1;32m  ✓\033[0m %s\n' "$*"; }
 fail()  { printf '\033[1;31m  ✗\033[0m %s\n' "$*" >&2; }
 
+# Rebuild the icon cache for a hicolor tree. A stale cache keeps listing icons
+# that were removed, and GTK then fails to load them instead of falling back to
+# the system theme.
+refresh_icon_cache() {
+    local dir="$1"
+    [ -d "$dir" ] || return 0
+    if command -v gtk4-update-icon-cache >/dev/null 2>&1; then
+        gtk4-update-icon-cache -f -t "$dir" >/dev/null 2>&1 || true
+    elif command -v gtk-update-icon-cache >/dev/null 2>&1; then
+        gtk-update-icon-cache -f -t "$dir" >/dev/null 2>&1 || true
+    fi
+}
+
 # ---------------------------------------------------------------- deps
 info "Checking dependencies"
 if ! command -v python3 >/dev/null 2>&1; then
@@ -73,7 +86,7 @@ mkdir -p "$ICON_DIR" "$APPS_DIR"
 cp "$SOURCE_DIR/assets/org.aura.Launcher.svg" "$ICON_DIR/"
 cp "$SOURCE_DIR/assets/org.aura.Launcher.desktop" "$APPS_DIR/"
 command -v update-desktop-database >/dev/null 2>&1 && update-desktop-database "$APPS_DIR" 2>/dev/null || true
-command -v gtk-update-icon-cache >/dev/null 2>&1 && gtk-update-icon-cache -f -t "$PREFIX/share/icons/hicolor" 2>/dev/null || true
+refresh_icon_cache "$PREFIX/share/icons/hicolor"
 ok "icon + desktop entry"
 
 # ---------------------------------------------------------------- shortcut
