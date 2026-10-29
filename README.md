@@ -72,6 +72,28 @@ To remove it again:
 ./uninstall.sh
 ```
 
+### Packages
+
+Prebuilt packages are attached to every [release](https://github.com/zelimir86/aura-launcher-gtk/releases):
+
+```bash
+sudo apt install ./aura-launcher_1.1.0_all.deb        # Debian, Ubuntu, Mint
+sudo dnf install ./aura-launcher-1.1.0-1.noarch.rpm   # Fedora, openSUSE
+```
+
+They install into `/usr/share/aura-launcher` with a launcher in `/usr/bin`,
+so they can coexist with the `~/.local` install (whichever comes first in
+`PATH` wins).
+
+Build them yourself:
+
+```bash
+./packaging/build-deb.sh   # requires dpkg-deb
+./packaging/build-rpm.sh   # requires rpmbuild
+```
+
+Both write to `build/`.
+
 ## Usage
 
 ```bash

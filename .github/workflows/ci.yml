@@ -53,3 +53,31 @@ jobs:
           bash -n install.sh
           bash -n uninstall.sh
           bash -n aura-launcher
+
+  packages:
+    name: Packages (.deb / .rpm)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install packaging tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rpm lintian
+
+      - name: Build .deb
+        run: ./packaging/build-deb.sh
+
+      - name: Lint the .deb
+        run: lintian --tag-display-limit 0 build/*.deb
+
+      - name: Build .rpm
+        run: ./packaging/build-rpm.sh
+
+      - name: Upload packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: |
+            build/*.deb
+            build/*.rpm

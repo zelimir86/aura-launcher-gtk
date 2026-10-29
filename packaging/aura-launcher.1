@@ -1,0 +1,52 @@
+.TH AURA-LAUNCHER 1 "2026-10-29" "aura-launcher 1.1.0" "User Commands"
+.SH NAME
+aura-launcher \- modern GTK4 application launcher for Linux
+.SH SYNOPSIS
+.B aura-launcher
+[\fB\-\-quit\fR]
+[\fB\-\-version\fR]
+.SH DESCRIPTION
+.B aura-launcher
+opens a search window for installed applications. Besides launching programs
+it evaluates arithmetic expressions, performs web searches, opens URLs and
+runs system actions such as locking the screen or shutting down the machine.
+.PP
+The application runs as a single instance. If a background instance already
+exists, invoking the command again simply shows the window.
+.PP
+Typing filters applications by name, description and keywords. Use the arrow
+keys to move, Enter to open the selection and Escape to clear the query or
+hide the window.
+.SH OPTIONS
+.TP
+.B \-\-quit
+Stop the background instance.
+.TP
+.B \-\-version
+Print the version and exit.
+.SH ENVIRONMENT
+.TP
+.B AURA_THEME
+Force a colour scheme: \fBdark\fR or \fBlight\fR. By default the desktop
+preference is used and followed live.
+.TP
+.B AURA_LAYER_SHELL
+Set to \fB1\fR to use wlr-layer-shell on compositors that support it.
+.SH FILES
+.TP
+.I ~/.config/aura-launcher/usage.json
+Launch counts used to rank frequently used applications.
+.SH EXAMPLES
+.TP
+.B 2^10 + sqrt(144)
+Shows the result and copies it to the clipboard on Enter.
+.TP
+.B g gtk4 tutorial
+Searches Google for the given terms.
+.TP
+.B github.com
+Opens the site in the default browser.
+.SH AUTHOR
+Želimir Stevanović <zelimir86@users.noreply.github.com>
+.SH SEE ALSO
+.BR xdg-open (1)

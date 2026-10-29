@@ -53,8 +53,16 @@ class AuraApplication(Gtk.Application):
 
 
 def main(argv=None):
+    argv = list(sys.argv if argv is None else argv)
+
+    # Answer --version locally: with a background instance running, the
+    # command line would otherwise be forwarded over D-Bus and print nothing.
+    if "--version" in argv[1:] or "-v" in argv[1:]:
+        print(f"Aura Launcher {__version__}")
+        return 0
+
     app = AuraApplication()
-    return app.run(argv if argv is not None else sys.argv)
+    return app.run(argv)
 
 
 if __name__ == "__main__":
