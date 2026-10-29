@@ -8,7 +8,7 @@ ACTIONS = [
         "description": "Lock the current desktop session",
         "icon": "system-lock-screen-symbolic",
         "command": ["loginctl", "lock-session"],
-        "keywords": ["lock", "screen", "zakljucaj", "secur"],
+        "keywords": ["lock", "screen", "secure", "lock screen"],
     },
     {
         "id": "suspend",
@@ -16,7 +16,7 @@ ACTIONS = [
         "description": "Put system to low-power sleep mode",
         "icon": "media-playback-pause-symbolic",
         "command": ["systemctl", "suspend"],
-        "keywords": ["suspend", "sleep", "spavanje", "pauza"],
+        "keywords": ["suspend", "sleep", "hibernate", "pause"],
     },
     {
         "id": "reboot",
@@ -24,7 +24,7 @@ ACTIONS = [
         "description": "Reboot the operating system",
         "icon": "system-reboot-symbolic",
         "command": ["systemctl", "reboot"],
-        "keywords": ["reboot", "restart", "ponovo pokreni", "reset"],
+        "keywords": ["reboot", "restart", "reset"],
     },
     {
         "id": "poweroff",
@@ -32,7 +32,7 @@ ACTIONS = [
         "description": "Shutdown the computer completely",
         "icon": "system-shutdown-symbolic",
         "command": ["systemctl", "poweroff"],
-        "keywords": ["poweroff", "shutdown", "iskljuci", "gašenje", "off"],
+        "keywords": ["poweroff", "shutdown", "shut down", "power", "off"],
     },
     {
         "id": "logout",
@@ -40,7 +40,7 @@ ACTIONS = [
         "description": "End current user session",
         "icon": "system-log-out-symbolic",
         "command": ["loginctl", "terminate-user", os.environ.get("USER", "")],
-        "keywords": ["logout", "log out", "odjava", "odjavi se"],
+        "keywords": ["logout", "log out", "sign out", "session"],
     },
 ]
 
